@@ -131,6 +131,7 @@ do
             while (dogCharacteristic == "") {
                 Console.WriteLine($"\nEnter one or more (comma separated ex: large, cream) desired dog characteristics to search for");
                 readResult = Console.ReadLine();
+                Console.WriteLine();
                 if(readResult != null) {
                     dogCharacteristic = readResult.ToLower().Trim();
                 }
@@ -140,18 +141,29 @@ do
             string dogDescription = "";
             bool noMatchesDog = true;
             // #6 loop through the ourAnimals array to search for matching animals
+            string[,] searchSpin = {{"/ ", "--", "\\ ", "* "}, {"2", "1", "1", "0"}};
             for (int i = 0; i < maxPets; i++) {
                 if (ourAnimals[i, 1].Contains("dog")) {
                     // #7 Search combined descriptions and report results
                     dogDescription = ourAnimals[i, 4] + "\n" + ourAnimals[i, 5];
                     bool match = false;
                     foreach(string c in characteristics) {
-                        if(c.Length > 0 && dogDescription.ToLower().Contains(c.Trim())) {
-                            Console.WriteLine($"\nOur dog {ourAnimals[i, 3]} matches term {c}!");
-                            noMatchesDog = false;
-                            match = true;
+                        if(c.Length > 0) {
+                            for(int j = 0; j < 4; j++) {
+                                Console.Write($"Searching \"{ourAnimals[i, 3]}\" for term \"{c.Trim()}\" {searchSpin[0, j]} {searchSpin[1, j]}    ");
+                                Thread.Sleep(1000);
+                                Console.Write("\r" + new string(' ', Console.WindowWidth) + "\r");
+                            }
+                            if(dogDescription.ToLower().Contains(c.Trim().ToLower())) {
+                                Console.Write($"Our dog {ourAnimals[i, 3]} matches term {c}!\n                         ");
+                                noMatchesDog = false;
+                                match = true;
+                            } else {
+                                Console.Write("\r" + new string(' ', Console.WindowWidth) + "\r");
+                            }
                         }
                     }
+                    Console.WriteLine();
                     if(match) {
                         Console.WriteLine(dogDescription);
                         Console.WriteLine();
