@@ -150,7 +150,7 @@ do
                     foreach(string c in characteristics) {
                         if(c.Length > 0) {
                             for(int j = 0; j < 4; j++) {
-                                Console.Write($"Searching \"{ourAnimals[i, 3]}\" for term \"{c.Trim()}\" {searchSpin[0, j]} {searchSpin[1, j]}    ");
+                                Console.Write($"\rSearching \"{ourAnimals[i, 3]}\" for term \"{c.Trim()}\" {searchSpin[0, j]} {searchSpin[1, j]}    \r");
                                 Thread.Sleep(1000);
                                 Console.Write("\r" + new string(' ', Console.WindowWidth) + "\r");
                             }
@@ -159,7 +159,7 @@ do
                                 noMatchesDog = false;
                                 match = true;
                             } else {
-                                Console.Write("\r" + new string(' ', Console.WindowWidth) + "\r");
+                                // Console.Write("\r" + new string(' ', Console.WindowWidth) + "\r");
                             }
                         }
                     }
