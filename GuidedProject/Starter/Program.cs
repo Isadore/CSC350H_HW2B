@@ -214,13 +214,116 @@ do {
             break;
         case "3":
             //Ensure animal ages and physical descriptions are complete
-            Console.WriteLine("Challenge Project - please check back soon to see progress.");
+            for(int i = 0; i < maxPets; i++) {
+                if(ourAnimals[i, 0] != "ID #: ") {
+                    bool completeAge = ourAnimals[i, 2].Trim() == "Age: ?";
+                    bool completePD = ourAnimals[i, 4].Trim() == "Physical description:";
+                    if(completeAge && completePD) {
+                        Console.WriteLine("A pet needs its age and physical description updated!");
+                    } else if(completeAge) {
+                        Console.WriteLine("A pet needs its age updated!");
+                    } else if(completePD) {
+                        Console.WriteLine("A pet needs its physical description updated!");
+                    }
+                    Console.WriteLine("Its current attributes are the following:");
+                    for(int j = 0; j < 6; j++) {
+                        Console.WriteLine(ourAnimals[i, j]);
+                    }
+                    bool ageEntered = !completeAge;
+                    int age;
+                    bool pdEntered = !completePD;
+                    while(!ageEntered) {
+                        Console.WriteLine("Enter the pets age below or type x to skip");
+                        readResult = Console.ReadLine();
+                        if(readResult != null) {
+                            readResult = readResult.Trim().ToLower();
+                            if(readResult == "x") {
+                                Console.WriteLine("Skipped.");
+                                ageEntered = true;
+                            } else if(int.TryParse(readResult, out age)) {
+                                Console.WriteLine("Pets age set to " + age);
+                                ageEntered = true;
+                                ourAnimals[i, 2] = "Age: " + age;
+                            } else {
+                                Console.WriteLine("Invalid input \"" + readResult + "\"");
+                            }
+                        }
+                    }
+                    while(!pdEntered) {
+                        Console.WriteLine("Enter the pets physical description (size, color, gender, weight, housebroken) below or type x to skip");
+                        readResult = Console.ReadLine();
+                        if(readResult != null) {
+                            readResult = readResult.Trim().ToLower();
+                            if(readResult == "x") {
+                                Console.WriteLine("Skipped.");
+                                pdEntered = true;
+                            } else if(readResult.Length > 2) {
+                                Console.WriteLine("Pets physical description set to " + readResult);
+                                pdEntered = true;
+                                ourAnimals[i, 4] = "Physical description: " + readResult; 
+                            } else {
+                                Console.WriteLine("Invalid input \"" + readResult + "\" please use more characters");
+                            }
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("All ages and physical descriptions reviewed.");
             Console.WriteLine("Press the Enter key to continue.");
             readResult = Console.ReadLine();
             break;
         case "4":
-            //Ensure animal nicknames and personality descriptions are complete
-            Console.WriteLine("Challenge Project - please check back soon to see progress.");
+            for(int i = 0; i < maxPets; i++) {
+                if(ourAnimals[i, 0] != "ID #: ") {
+                    bool completeNick = ourAnimals[i, 3].Trim() == "Nickname:";
+                    bool completePers = ourAnimals[i, 5].Trim() == "Personality:";
+                    if(completeNick && completePers) {
+                        Console.WriteLine("A pet needs its nickname and personality description updated!");
+                    } else if(completeNick) {
+                        Console.WriteLine("A pet needs its nickname updated!");
+                    } else if(completePers) {
+                        Console.WriteLine("A pet needs its personality description updated!");
+                    }
+                    Console.WriteLine("Its current attributes are the following:");
+                    for(int j = 0; j < 6; j++) {
+                        Console.WriteLine(ourAnimals[i, j]);
+                    }
+                    bool nickEntered = !completeNick;
+                    bool persEntered = !completePers;
+                    while(!nickEntered) {
+                        Console.WriteLine($"Enter the pets nickname below or its id \"{ourAnimals[i, 0]}\" to skip.");
+                        readResult = Console.ReadLine();
+                        if(readResult != null) {
+                            readResult = readResult.Trim().ToLower();
+                            if(readResult.Trim().Length > 0) {
+                                Console.WriteLine("Pets nickname set to " + readResult.Trim());
+                                nickEntered = true;
+                                ourAnimals[i, 3] = "Nickname: " + readResult.Trim();
+                            } else {
+                                Console.WriteLine("Invalid input \"" + readResult + "\"");
+                            }
+                        }
+                    }
+                    while(!persEntered) {
+                        Console.WriteLine("Enter the pets personality description (likes or dislikes, tricks, energy level) below or type x to skip");
+                        readResult = Console.ReadLine();
+                        if(readResult != null) {
+                            readResult = readResult.Trim().ToLower();
+                            if(readResult == "x") {
+                                Console.WriteLine("Skipped.");
+                                persEntered = true;
+                            } else if(readResult.Length > 2) {
+                                Console.WriteLine($"Pets personality description set to \"{readResult}\"");
+                                persEntered = true;
+                                ourAnimals[i, 5] = "Personality: " + readResult; 
+                            } else {
+                                Console.WriteLine($"Invalid input \"{readResult}\" please use more characters");
+                            }
+                        }
+                    }
+                }
+            }
+            Console.WriteLine("All nicknames and physical descriptions reviewed.");
             Console.WriteLine("Press the Enter key to continue.");
             readResult = Console.ReadLine();
             break;
