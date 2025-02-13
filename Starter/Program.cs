@@ -129,24 +129,32 @@ do
             // Display all dogs with a specified characteristic
             string dogCharacteristic = "";
             while (dogCharacteristic == "") {
-                Console.WriteLine($"\nEnter one desired dog characteristics to search for");
+                Console.WriteLine($"\nEnter one or more (comma separated ex: large, cream) desired dog characteristics to search for");
                 readResult = Console.ReadLine();
                 if(readResult != null) {
                     dogCharacteristic = readResult.ToLower().Trim();
                 }
             }
+            string[] characteristics = readResult.Split(",");
+            
             string dogDescription = "";
             bool noMatchesDog = true;
             // #6 loop through the ourAnimals array to search for matching animals
             for (int i = 0; i < maxPets; i++) {
-                if (ourAnimals[i, 1].Contains("dog"))
-                {
+                if (ourAnimals[i, 1].Contains("dog")) {
                     // #7 Search combined descriptions and report results
                     dogDescription = ourAnimals[i, 4] + "\n" + ourAnimals[i, 5];
-                    if (dogDescription.Contains(dogCharacteristic)) {
-                        Console.WriteLine($"\nOur dog {ourAnimals[i, 3]} is a match!");
+                    bool match = false;
+                    foreach(string c in characteristics) {
+                        if(c.Length > 0 && dogDescription.ToLower().Contains(c.Trim())) {
+                            Console.WriteLine($"\nOur dog {ourAnimals[i, 3]} matches term {c}!");
+                            noMatchesDog = false;
+                            match = true;
+                        }
+                    }
+                    if(match) {
                         Console.WriteLine(dogDescription);
-                        noMatchesDog = false;
+                        Console.WriteLine();
                     }
                 }
             }
