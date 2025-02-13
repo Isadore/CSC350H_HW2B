@@ -1,2 +1,3 @@
-# Guided-project-branching-looping-CSharp
-Starter and Solution code for the Guided project: "Develop conditional branching and looping structures in C#" from the Microsoft Learn collection "Getting started with C#"
+# Guided-project-Work-with-variable-data-in-CSharp
+
+Starter and Solution code for the **Guided project**: "Work with variable data in C# console applications" from the Microsoft Learn collection "Getting started with C#"
