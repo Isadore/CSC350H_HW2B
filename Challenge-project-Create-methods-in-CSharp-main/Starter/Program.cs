@@ -72,6 +72,10 @@ void FreezePlayer()
     player = states[0];
 }
 
+bool DidEatFood() {
+    return foodX == playerX && foodY == playerY;
+}
+
 // Reads directional input from the Console and moves the player
 void Move(bool allowNondirectional = true) 
 {
@@ -112,6 +116,11 @@ void Move(bool allowNondirectional = true)
     // Keep player position within the bounds of the Terminal window
     playerX = (playerX < 0) ? 0 : (playerX >= width ? width : playerX);
     playerY = (playerY < 0) ? 0 : (playerY >= height ? height : playerY);
+
+    if(DidEatFood()) {
+        ShowFood();
+        player = states[food];
+    }
 
     // Draw the player at the new location
     Console.SetCursorPosition(playerX, playerY);
