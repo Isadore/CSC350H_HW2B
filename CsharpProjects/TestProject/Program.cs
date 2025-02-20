@@ -1,16 +1,13 @@
-﻿using System;
-
-string[] pettingZoo = 
+﻿string[] pettingZoo = 
 {
     "alpacas", "capybaras", "chickens", "ducks", "emus", "geese", 
     "goats", "iguanas", "kangaroos", "lemurs", "llamas", "macaws", 
     "ostriches", "pigs", "ponies", "rabbits", "sheep", "tortoises",
 };
 RandomizeAnimals();
-AssignGroup();
-//PrintGroup(group);
 Console.WriteLine("School A");
-//string[,] group = AssignGroup();
+string[,] group = AssignGroup();
+PrintGroup(group);
 
 void RandomizeAnimals() {
     Random rand = new();
@@ -31,4 +28,13 @@ string[,] AssignGroup(int groups = 6) {
         }
     }
     return result;
+}
+
+void PrintGroup(string[,] group) {
+    for(int i = 0; i < group.GetLength(0); i++) {
+        for(int j = 0; j < group.GetLength(1); j++) {
+            Console.Write($"{group[i, j]}  ");
+        }
+        Console.WriteLine();
+    }
 }
