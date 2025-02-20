@@ -32,7 +32,15 @@ while (!shouldExit)
         Console.WriteLine("Console was resized. Program exiting.");
         shouldExit = true;
     } else {
-        Move();
+        // if(PlayerHappy()) {
+        //     Move(true, true);
+        // } else
+        if(!PlayerAlive()) {
+            FreezePlayer();
+            Move();
+        } else {
+            Move();
+        }
     }
 }
 
@@ -76,8 +84,16 @@ bool DidEatFood() {
     return foodX == playerX && foodY == playerY;
 }
 
+bool PlayerAlive() {
+    return player != "(X_X)";
+}
+
+bool PlayerHappy() {
+    return player == "(^-^)";
+}
+
 // Reads directional input from the Console and moves the player
-void Move(bool allowNondirectional = true) 
+void Move(bool allowNondirectional = true, bool lrMoveFast = false) 
 {
     int lastX = playerX;
     int lastY = playerY;
@@ -91,10 +107,10 @@ void Move(bool allowNondirectional = true)
             playerY++; 
             break;
 		case ConsoleKey.LeftArrow:  
-            playerX--; 
+            playerX-=lrMoveFast ? 3 : 1;
             break;
-		case ConsoleKey.RightArrow: 
-            playerX++; 
+		case ConsoleKey.RightArrow:
+            playerX+=lrMoveFast ? 3 : 1; 
             break;
 		case ConsoleKey.Escape:     
             shouldExit = true; 
